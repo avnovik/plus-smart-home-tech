@@ -4,6 +4,11 @@
 *.iws
 *.iml
 *.ipr
+*.png
+*.bat
+*.sh
+*.jar
+!README.md
 
 ### Java ###
 # Compiled class file
