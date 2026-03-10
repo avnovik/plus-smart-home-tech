@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
+import lombok.Data;
 
 import java.time.Instant;
 
@@ -22,6 +23,7 @@ import java.time.Instant;
         @JsonSubTypes.Type(value = ScenarioAddedEventDto.class, name = "SCENARIO_ADDED"),
         @JsonSubTypes.Type(value = ScenarioRemovedEventDto.class, name = "SCENARIO_REMOVED")
 })
+@Data
 public abstract class HubEventDto {
 
     @NotBlank
@@ -31,28 +33,4 @@ public abstract class HubEventDto {
 
     @NotNull
     private HubEventType type;
-
-    public String getHubId() {
-        return hubId;
-    }
-
-    public void setHubId(String hubId) {
-        this.hubId = hubId;
-    }
-
-    public Instant getTimestamp() {
-        return timestamp;
-    }
-
-    public void setTimestamp(Instant timestamp) {
-        this.timestamp = timestamp;
-    }
-
-    public HubEventType getType() {
-        return type;
-    }
-
-    public void setType(HubEventType type) {
-        this.type = type;
-    }
 }
