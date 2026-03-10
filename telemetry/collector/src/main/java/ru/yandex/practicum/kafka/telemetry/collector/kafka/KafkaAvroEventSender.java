@@ -5,7 +5,6 @@ import org.apache.avro.specific.SpecificRecord;
 import org.apache.kafka.clients.producer.KafkaProducer;
 import org.apache.kafka.clients.producer.ProducerRecord;
 import org.springframework.stereotype.Component;
-import serialization.AvroBinarySerializer;
 
 import java.time.Instant;
 
@@ -16,21 +15,19 @@ import java.time.Instant;
 @Slf4j
 public class KafkaAvroEventSender {
 
-    private final KafkaProducer<String, byte[]> producer;
-    private final AvroBinarySerializer serializer;
+    private final KafkaProducer<String, SpecificRecord> producer;
 
-    public KafkaAvroEventSender(KafkaProducer<String, byte[]> producer, AvroBinarySerializer serializer) {
+    public KafkaAvroEventSender(KafkaProducer<String, SpecificRecord> producer) {
         this.producer = producer;
-        this.serializer = serializer;
     }
 
     public void send(String topic, String hubId, Instant timestamp, SpecificRecord avro, String eventType) {
-        ProducerRecord<String, byte[]> record = new ProducerRecord<>(
+        ProducerRecord<String, SpecificRecord> record = new ProducerRecord<>(
                 topic,
                 null,
                 timestamp.toEpochMilli(),
                 hubId,
-                serializer.toBytes(avro)
+                avro
         );
 
         producer.send(record, (metadata, exception) -> {
