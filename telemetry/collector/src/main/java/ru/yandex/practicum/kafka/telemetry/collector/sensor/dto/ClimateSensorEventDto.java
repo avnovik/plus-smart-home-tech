@@ -1,10 +1,12 @@
 package ru.yandex.practicum.kafka.telemetry.collector.sensor.dto;
 
+import lombok.Data;
 import jakarta.validation.constraints.NotNull;
 
 /**
  * DTO события климатического датчика.
  */
+@Data
 public class ClimateSensorEventDto extends SensorEventDto {
 
     @NotNull
@@ -15,28 +17,4 @@ public class ClimateSensorEventDto extends SensorEventDto {
 
     @NotNull
     private Integer co2Level;
-
-    public Integer getTemperatureC() {
-        return temperatureC;
-    }
-
-    public void setTemperatureC(Integer temperatureC) {
-        this.temperatureC = temperatureC;
-    }
-
-    public Integer getHumidity() {
-        return humidity;
-    }
-
-    public void setHumidity(Integer humidity) {
-        this.humidity = humidity;
-    }
-
-    public Integer getCo2Level() {
-        return co2Level;
-    }
-
-    public void setCo2Level(Integer co2Level) {
-        this.co2Level = co2Level;
-    }
 }
