@@ -70,11 +70,8 @@ public class AggregationStarter {
                 ConsumerRecords<String, SensorEventAvro> records = consumer.poll(Duration.ofMillis(pollTimeoutMs));
 
                 for (ConsumerRecord<String, SensorEventAvro> record : records) {
-                    Optional<SensorsSnapshotAvro> snapshotOpt = snapshotAggregator.updateState(record.value());
-                    if (snapshotOpt.isPresent()) {
-                        SensorsSnapshotAvro snapshot = snapshotOpt.get();
-                        producer.send(new ProducerRecord<>(snapshotsTopic, snapshot.getHubId(), snapshot));
-                    }
+                    snapshotAggregator.updateState(record.value())
+                            .ifPresent(snapshot -> producer.send(new ProducerRecord<>(snapshotsTopic, snapshot.getHubId(), snapshot)));
                 }
 
                 if (!records.isEmpty()) {
