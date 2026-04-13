@@ -34,7 +34,6 @@ public class HubEventProtoMapper {
             case SCENARIO_ADDED -> toScenarioAddedDto(proto);
             case SCENARIO_REMOVED -> toScenarioRemovedDto(proto);
             case PAYLOAD_NOT_SET -> throw new IllegalArgumentException("Hub event payload is not set: " + payloadCase);
-            default -> throw new IllegalArgumentException("Unknown hub event payload case: " + payloadCase);
         };
 
         dto.setHubId(proto.getHubId());
@@ -94,7 +93,6 @@ public class HubEventProtoMapper {
             case BOOL_VALUE -> proto.getBoolValue() ? 1 : 0;
             case INT_VALUE -> proto.getIntValue();
             case VALUE_NOT_SET -> null;
-            default -> null;
         };
 
         dto.setValue(value);

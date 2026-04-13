@@ -27,7 +27,6 @@ public class SensorEventProtoMapper {
             case CLIMATE_SENSOR -> toClimateDto(proto);
             case SWITCH_SENSOR -> toSwitchDto(proto);
             case PAYLOAD_NOT_SET -> throw new IllegalArgumentException("Sensor event payload is not set: " + payloadCase);
-            default -> throw new IllegalArgumentException("Unknown sensor event payload case: " + payloadCase);
         };
 
         dto.setId(proto.getId());
