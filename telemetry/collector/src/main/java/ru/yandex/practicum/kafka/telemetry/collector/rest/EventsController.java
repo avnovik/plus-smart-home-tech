@@ -1,4 +1,4 @@
-package ru.yandex.practicum.kafka.telemetry.collector.events;
+package ru.yandex.practicum.kafka.telemetry.collector.rest;
 
 import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
@@ -6,11 +6,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
-import ru.yandex.practicum.kafka.telemetry.collector.hub.service.HubEventProducerService;
 import ru.yandex.practicum.kafka.telemetry.collector.hub.dto.HubEventDto;
-import ru.yandex.practicum.kafka.telemetry.collector.sensor.service.SensorEventProducerService;
+import ru.yandex.practicum.kafka.telemetry.collector.hub.service.HubEventProducerService;
 import ru.yandex.practicum.kafka.telemetry.collector.sensor.dto.SensorEventDto;
+import ru.yandex.practicum.kafka.telemetry.collector.sensor.service.SensorEventProducerService;
 
 /**
  * REST-контроллер Collector сервиса для приёма событий от Hub Router.
