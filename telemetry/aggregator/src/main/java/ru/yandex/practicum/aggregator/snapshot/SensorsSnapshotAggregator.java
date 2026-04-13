@@ -14,7 +14,7 @@ import org.springframework.stereotype.Component;
 
 /**
  * Агрегирует входящие события датчиков ({@link SensorEventAvro}) в снапшоты состояния хаба ({@link SensorsSnapshotAvro}).
- *
+ * <p>
  * Снапшот обновляется только если:
  * 1) для датчика ещё нет состояния в снапшоте, или</li>
  * 2) событие новее текущего состояния датчика, и payload отличается.</li>
@@ -36,7 +36,7 @@ public class SensorsSnapshotAggregator {
 
         Map<String, SensorStateAvro> stateBySensorId = snapshot.getSensorsState();
         if (stateBySensorId == null) {
-            stateBySensorId = new HashMap<String, SensorStateAvro>();
+            stateBySensorId = new HashMap<>();
             snapshot.setSensorsState(stateBySensorId);
         }
 
@@ -61,6 +61,6 @@ public class SensorsSnapshotAggregator {
     }
 
     private SensorsSnapshotAvro newSnapshot(String hubId) {
-        return new SensorsSnapshotAvro(hubId, Instant.EPOCH, new HashMap<String, SensorStateAvro>());
+        return new SensorsSnapshotAvro(hubId, Instant.EPOCH, new HashMap<>());
     }
 }
