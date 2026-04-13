@@ -10,6 +10,7 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.MapsId;
 import jakarta.persistence.Table;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.io.Serializable;
@@ -22,6 +23,7 @@ import java.util.Objects;
 @Table(name = "scenario_conditions")
 @Getter
 @Setter
+@NoArgsConstructor
 public class ScenarioCondition {
 
     @EmbeddedId
@@ -42,9 +44,6 @@ public class ScenarioCondition {
     @MapsId("conditionId")
     private Condition condition;
 
-    public ScenarioCondition() {
-    }
-
     public ScenarioCondition(Scenario scenario, Sensor sensor, Condition condition) {
         this.id = new ScenarioConditionId(scenario.getId(), sensor.getId(), condition.getId());
         this.scenario = scenario;
@@ -58,6 +57,7 @@ public class ScenarioCondition {
     @Embeddable
     @Getter
     @Setter
+    @NoArgsConstructor
     public static class ScenarioConditionId implements Serializable {
 
         @Column(name = "scenario_id")
@@ -68,9 +68,6 @@ public class ScenarioCondition {
 
         @Column(name = "condition_id")
         private Long conditionId;
-
-        public ScenarioConditionId() {
-        }
 
         public ScenarioConditionId(Long scenarioId, String sensorId, Long conditionId) {
             this.scenarioId = scenarioId;

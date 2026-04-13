@@ -7,6 +7,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 /**
@@ -16,6 +17,7 @@ import lombok.Setter;
 @Table(name = "scenarios")
 @Getter
 @Setter
+@NoArgsConstructor
 public class Scenario {
 
     @Id
@@ -28,9 +30,6 @@ public class Scenario {
 
     @Column(name = "name")
     private String name;
-
-    public Scenario() {
-    }
 
     public Scenario(String hubId, String name) {
         this.hubId = hubId;

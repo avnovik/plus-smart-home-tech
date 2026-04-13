@@ -9,6 +9,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 /**
@@ -18,6 +19,7 @@ import lombok.Setter;
 @Table(name = "conditions")
 @Getter
 @Setter
+@NoArgsConstructor
 public class Condition {
 
     @Id
@@ -35,9 +37,6 @@ public class Condition {
 
     @Column(name = "value")
     private Integer value;
-
-    public Condition() {
-    }
 
     public Condition(ConditionType type, ConditionOperation operation, Integer value) {
         this.type = type;

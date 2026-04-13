@@ -10,6 +10,7 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.MapsId;
 import jakarta.persistence.Table;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.io.Serializable;
@@ -22,6 +23,7 @@ import java.util.Objects;
 @Table(name = "scenario_actions")
 @Getter
 @Setter
+@NoArgsConstructor
 public class ScenarioAction {
 
     @EmbeddedId
@@ -42,9 +44,6 @@ public class ScenarioAction {
     @MapsId("actionId")
     private Action action;
 
-    public ScenarioAction() {
-    }
-
     public ScenarioAction(Scenario scenario, Sensor sensor, Action action) {
         this.id = new ScenarioActionId(scenario.getId(), sensor.getId(), action.getId());
         this.scenario = scenario;
@@ -58,6 +57,7 @@ public class ScenarioAction {
     @Embeddable
     @Getter
     @Setter
+    @NoArgsConstructor
     public static class ScenarioActionId implements Serializable {
 
         @Column(name = "scenario_id")
@@ -68,9 +68,6 @@ public class ScenarioAction {
 
         @Column(name = "action_id")
         private Long actionId;
-
-        public ScenarioActionId() {
-        }
 
         public ScenarioActionId(Long scenarioId, String sensorId, Long actionId) {
             this.scenarioId = scenarioId;

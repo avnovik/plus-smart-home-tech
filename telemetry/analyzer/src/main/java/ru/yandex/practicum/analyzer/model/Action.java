@@ -9,6 +9,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 /**
@@ -18,6 +19,7 @@ import lombok.Setter;
 @Table(name = "actions")
 @Getter
 @Setter
+@NoArgsConstructor
 public class Action {
 
     @Id
@@ -31,9 +33,6 @@ public class Action {
 
     @Column(name = "value")
     private Integer value;
-
-    public Action() {
-    }
 
     public Action(ActionType type, Integer value) {
         this.type = type;
