@@ -39,7 +39,7 @@ public class HubRouterGrpcClient {
             log.error("gRPC вызов Hub Router не выполнен: hubId={}, scenarioName={}, sensorId={}, status={}",
                     request.getHubId(),
                     request.getScenarioName(),
-                    request.getAction() == null ? null : request.getAction().getSensorId(),
+                    request.getAction().getSensorId(),
                     e.getStatus(),
                     e);
         }
@@ -49,16 +49,8 @@ public class HubRouterGrpcClient {
      * Проверка, что запрос к gRPC может быть отправлен.
      */
     public boolean isValid(DeviceActionRequest request) {
-        if (request == null) {
-            return false;
-        }
-        if (request.getHubId() == null || request.getHubId().isBlank()) {
-            return false;
-        }
-        if (request.getScenarioName() == null || request.getScenarioName().isBlank()) {
-            return false;
-        }
-        DeviceActionProto action = request.getAction();
-        return action != null && action.getSensorId() != null && !action.getSensorId().isBlank();
+        return !request.getHubId().isBlank()
+                && !request.getScenarioName().isBlank()
+                && !request.getAction().getSensorId().isBlank();
     }
 }
