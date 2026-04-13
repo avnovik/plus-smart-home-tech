@@ -4,6 +4,7 @@ import com.google.protobuf.Empty;
 import io.grpc.Status;
 import io.grpc.StatusRuntimeException;
 import io.grpc.stub.StreamObserver;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import net.devh.boot.grpc.server.service.GrpcService;
 import ru.yandex.practicum.grpc.telemetry.collector.CollectorControllerGrpc;
@@ -16,24 +17,13 @@ import ru.yandex.practicum.kafka.telemetry.collector.sensor.service.SensorEventP
 
 @GrpcService
 @Slf4j
+@RequiredArgsConstructor
 public class CollectorGrpcService extends CollectorControllerGrpc.CollectorControllerImplBase {
 
     private final SensorEventProducerService sensorEventProducerService;
     private final HubEventProducerService hubEventProducerService;
     private final SensorEventProtoMapper sensorEventProtoMapper;
     private final HubEventProtoMapper hubEventProtoMapper;
-
-    public CollectorGrpcService(
-            SensorEventProducerService sensorEventProducerService,
-            HubEventProducerService hubEventProducerService,
-            SensorEventProtoMapper sensorEventProtoMapper,
-            HubEventProtoMapper hubEventProtoMapper
-    ) {
-        this.sensorEventProducerService = sensorEventProducerService;
-        this.hubEventProducerService = hubEventProducerService;
-        this.sensorEventProtoMapper = sensorEventProtoMapper;
-        this.hubEventProtoMapper = hubEventProtoMapper;
-    }
 
     @Override
     public void collectSensorEvent(SensorEventProto request, StreamObserver<Empty> responseObserver) {

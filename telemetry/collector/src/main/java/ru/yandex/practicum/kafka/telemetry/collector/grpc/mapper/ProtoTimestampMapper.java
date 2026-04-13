@@ -1,13 +1,12 @@
 package ru.yandex.practicum.kafka.telemetry.collector.grpc.mapper;
 
 import com.google.protobuf.Timestamp;
+import lombok.experimental.UtilityClass;
 
 import java.time.Instant;
 
-public final class ProtoTimestampMapper {
-
-    private ProtoTimestampMapper() {
-    }
+@UtilityClass
+public class ProtoTimestampMapper {
 
     public static Instant toInstant(Timestamp timestamp) {
         if (timestamp == null) {
