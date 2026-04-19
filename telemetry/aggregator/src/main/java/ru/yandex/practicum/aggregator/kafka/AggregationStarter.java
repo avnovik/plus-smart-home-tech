@@ -1,5 +1,6 @@
 package ru.yandex.practicum.aggregator.kafka;
 
+import deserializer.SensorEventDeserializer;
 import org.apache.kafka.clients.consumer.ConsumerConfig;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.apache.kafka.clients.consumer.ConsumerRecords;
@@ -18,11 +19,9 @@ import ru.yandex.practicum.aggregator.snapshot.SensorsSnapshotAggregator;
 import ru.yandex.practicum.kafka.telemetry.event.SensorEventAvro;
 import ru.yandex.practicum.kafka.telemetry.event.SensorsSnapshotAvro;
 import serialization.AvroBinarySerializer;
-import deserializer.SensorEventDeserializer;
 
 import java.time.Duration;
 import java.util.List;
-import java.util.Optional;
 import java.util.Properties;
 
 /**
