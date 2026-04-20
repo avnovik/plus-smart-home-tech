@@ -27,6 +27,32 @@ services:
       POSTGRES_DB: smarthome
       POSTGRES_USER: smarthome
       POSTGRES_PASSWORD: smarthome
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U smarthome -d smarthome"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  db-init:
+    image: postgres:16
+    container_name: db-init
+    depends_on:
+      - postgres
+    environment:
+      PGPASSWORD: smarthome
+    entrypoint:
+      - bash
+      - -c
+      - >
+        set -e;
+        until pg_isready -h postgres -U smarthome -d postgres; do
+          echo "waiting for postgres...";
+          sleep 1;
+        done;
+        psql -h postgres -U smarthome -d postgres -v ON_ERROR_STOP=1 -c "create database commerce_shopping_cart";
+        psql -h postgres -U smarthome -d postgres -v ON_ERROR_STOP=1 -c "create database commerce_shopping_store";
+        psql -h postgres -U smarthome -d postgres -v ON_ERROR_STOP=1 -c "create database commerce_warehouse";
+    restart: "no"
 
   kafka-init-topics:
     image: confluentinc/confluent-local:7.4.3
