@@ -1,0 +1,22 @@
+server:
+  port: 0
+
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5433/commerce_shopping_store
+    username: smarthome
+    password: smarthome
+    driver-class-name: org.postgresql.Driver
+  sql:
+    init:
+      mode: always
+      schema-locations: classpath:schema.sql
+  jpa:
+    hibernate:
+      ddl-auto: none
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info
