@@ -13,6 +13,13 @@ spring:
 server:
   port: 0
 
+# Spring Boot Actuator: endpoint /actuator/health.
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info
+
 eureka:
   client:
     service-url:
