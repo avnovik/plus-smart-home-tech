@@ -1,5 +1,6 @@
 package ru.yandex.practicum.commerce.client;
 
+import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -15,13 +16,13 @@ import ru.yandex.practicum.commerce.dto.warehouse.NewProductInWarehouseRequest;
 public interface WarehouseApi {
 
     @PutMapping
-    void newProductInWarehouse(@RequestBody NewProductInWarehouseRequest request);
+    void newProductInWarehouse(@Valid @RequestBody NewProductInWarehouseRequest request);
 
     @PostMapping("/check")
-    BookedProductsDto checkProductQuantityEnoughForShoppingCart(@RequestBody ShoppingCartDto shoppingCart);
+    BookedProductsDto checkProductQuantityEnoughForShoppingCart(@Valid @RequestBody ShoppingCartDto shoppingCart);
 
     @PostMapping("/add")
-    void addProductToWarehouse(@RequestBody AddProductToWarehouseRequest request);
+    void addProductToWarehouse(@Valid @RequestBody AddProductToWarehouseRequest request);
 
     @GetMapping("/address")
     AddressDto getWarehouseAddress();

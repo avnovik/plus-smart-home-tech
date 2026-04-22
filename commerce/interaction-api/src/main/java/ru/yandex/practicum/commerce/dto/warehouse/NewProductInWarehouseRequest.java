@@ -1,11 +1,14 @@
 package ru.yandex.practicum.commerce.dto.warehouse;
 
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.DecimalMin;
+import jakarta.validation.constraints.NotNull;
 import java.util.UUID;
 
 public record NewProductInWarehouseRequest(
-        UUID productId,
+        @NotNull UUID productId,
         Boolean fragile,
-        DimensionDto dimension,
-        Double weight
+        @NotNull @Valid DimensionDto dimension,
+        @NotNull @DecimalMin("1") Double weight
 ) {
 }

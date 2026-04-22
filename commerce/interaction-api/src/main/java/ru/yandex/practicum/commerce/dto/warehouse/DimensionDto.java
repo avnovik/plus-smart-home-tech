@@ -1,8 +1,11 @@
 package ru.yandex.practicum.commerce.dto.warehouse;
 
+import jakarta.validation.constraints.DecimalMin;
+import jakarta.validation.constraints.NotNull;
+
 public record DimensionDto(
-        Double width,
-        Double height,
-        Double depth
+        @NotNull @DecimalMin("1") Double width,
+        @NotNull @DecimalMin("1") Double height,
+        @NotNull @DecimalMin("1") Double depth
 ) {
 }
