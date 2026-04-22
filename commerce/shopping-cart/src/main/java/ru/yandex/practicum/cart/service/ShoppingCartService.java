@@ -9,6 +9,8 @@ import ru.yandex.practicum.cart.model.CartState;
 import ru.yandex.practicum.cart.model.ShoppingCartEntity;
 import ru.yandex.practicum.cart.model.ShoppingCartItemEntity;
 import ru.yandex.practicum.cart.repository.ShoppingCartRepository;
+import ru.yandex.practicum.commerce.client.WarehouseClient;
+import ru.yandex.practicum.commerce.dto.common.ShoppingCartDto;
 
 import java.util.*;
 
@@ -17,6 +19,7 @@ import java.util.*;
 public class ShoppingCartService {
 
     private final ShoppingCartRepository shoppingCartRepository;
+    private final WarehouseClient warehouseClient;
 
     @Transactional
     public ShoppingCartEntity getOrCreateActiveCart(String username) {
@@ -31,6 +34,8 @@ public class ShoppingCartService {
         if (products == null || products.isEmpty()) {
             return cart;
         }
+
+        warehouseClient.checkProductQuantityEnoughForShoppingCart(new ShoppingCartDto(cart.getId(), products));
 
         for (Map.Entry<UUID, Long> entry : products.entrySet()) {
             UUID productId = entry.getKey();

@@ -6,7 +6,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import ru.yandex.practicum.commerce.dto.store.PageProductDto;
 import ru.yandex.practicum.commerce.dto.store.ProductCategory;
@@ -16,10 +15,9 @@ import ru.yandex.practicum.commerce.dto.store.QuantityState;
 import java.util.List;
 import java.util.UUID;
 
-@RequestMapping("/api/v1/shopping-store")
 public interface ShoppingStoreApi {
 
-    @GetMapping
+    @GetMapping("/api/v1/shopping-store")
     PageProductDto getProducts(
             @RequestParam("category") ProductCategory category,
             @RequestParam(value = "page", required = false, defaultValue = "0") Integer page,
@@ -27,21 +25,21 @@ public interface ShoppingStoreApi {
             @RequestParam(value = "sort", required = false) List<String> sort
     );
 
-    @PutMapping
+    @PutMapping("/api/v1/shopping-store")
     ProductDto createNewProduct(@RequestBody @Valid ProductDto productDto);
 
-    @PostMapping
+    @PostMapping("/api/v1/shopping-store")
     ProductDto updateProduct(@RequestBody @Valid ProductDto productDto);
 
-    @PostMapping("/removeProductFromStore")
+    @PostMapping("/api/v1/shopping-store/removeProductFromStore")
     Boolean removeProductFromStore(@RequestBody UUID productId);
 
-    @PostMapping("/quantityState")
+    @PostMapping("/api/v1/shopping-store/quantityState")
     Boolean setProductQuantityState(
             @RequestParam("productId") UUID productId,
             @RequestParam("quantityState") QuantityState quantityState
     );
 
-    @GetMapping("/{productId}")
+    @GetMapping("/api/v1/shopping-store/{productId}")
     ProductDto getProduct(@PathVariable("productId") UUID productId);
 }
