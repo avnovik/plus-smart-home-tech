@@ -1,6 +1,7 @@
 package ru.yandex.practicum.commerce.client;
 
 import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotBlank;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -17,26 +18,26 @@ import java.util.UUID;
 public interface ShoppingCartApi {
 
     @GetMapping("/api/v1/shopping-cart")
-    ShoppingCartDto getShoppingCart(@RequestParam("username") String username);
+    ShoppingCartDto getShoppingCart(@RequestParam("username") @NotBlank String username);
 
     @PutMapping("/api/v1/shopping-cart")
     ShoppingCartDto addProductToShoppingCart(
-            @RequestParam("username") String username,
+            @RequestParam("username") @NotBlank String username,
             @RequestBody Map<UUID, Long> products
     );
 
     @DeleteMapping("/api/v1/shopping-cart")
-    void deactivateCurrentShoppingCart(@RequestParam("username") String username);
+    void deactivateCurrentShoppingCart(@RequestParam("username") @NotBlank String username);
 
     @PostMapping("/api/v1/shopping-cart/remove")
     ShoppingCartDto removeFromShoppingCart(
-            @RequestParam("username") String username,
+            @RequestParam("username") @NotBlank String username,
             @RequestBody List<UUID> productIds
     );
 
     @PostMapping("/api/v1/shopping-cart/change-quantity")
     ShoppingCartDto changeProductQuantity(
-            @RequestParam("username") String username,
+            @RequestParam("username") @NotBlank String username,
             @Valid @RequestBody ChangeProductQuantityRequest request
     );
 }
