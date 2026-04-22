@@ -7,8 +7,16 @@ spring:
     config:
       fail-fast: true
       retry:
+        # Повторные попытки получить конфиг из config-server, чтобы переживать гонку старта
         useRandomPolicy: true
+        # Стартовая пауза между ретраями (мс)
+        initial-interval: 2000
+        # Множитель роста паузы между ретраями
+        multiplier: 1.5
+        # Максимальная пауза между ретраями (мс)
         max-interval: 6000
+        # Максимальное количество попыток
+        max-attempts: 20
       discovery:
         enabled: true
         service-id: config-server
