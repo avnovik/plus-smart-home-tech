@@ -92,7 +92,9 @@ public class ShoppingCartService {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Нет искомых товаров в корзине");
         }
 
-        item.setQuantity(toPositiveInt(newQuantity));
+        int qty = toPositiveInt(newQuantity);
+        warehouseClient.checkProductQuantityEnoughForShoppingCart(new ShoppingCartDto(cart.getId(), Map.of(productId, (long) qty)));
+        item.setQuantity(qty);
         return shoppingCartRepository.saveAndFlush(cart);
     }
 
