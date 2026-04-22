@@ -1,7 +1,7 @@
 CREATE TABLE IF NOT EXISTS products (
     id UUID PRIMARY KEY,
     product_name VARCHAR NOT NULL,
-    description VARCHAR,
+    description VARCHAR NOT NULL,
     image_src VARCHAR,
     quantity_state VARCHAR NOT NULL,
     product_state VARCHAR NOT NULL,
