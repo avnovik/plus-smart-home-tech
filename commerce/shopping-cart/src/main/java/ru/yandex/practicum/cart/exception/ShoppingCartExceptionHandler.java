@@ -10,8 +10,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.server.ResponseStatusException;
-import ru.yandex.practicum.commerce.dto.error.NoProductsInShoppingCartException;
-import ru.yandex.practicum.commerce.dto.error.NotAuthorizedUserException;
+import ru.yandex.practicum.commerce.dto.error.ErrorResponse;
 
 @Slf4j
 @RestControllerAdvice
@@ -27,13 +26,13 @@ public class ShoppingCartExceptionHandler {
 
         if (status == HttpStatus.UNAUTHORIZED) {
             log.warn("{}: {}", status, reason);
-            NotAuthorizedUserException body = errorFactory.notAuthorized(reason);
+            ErrorResponse body = errorFactory.notAuthorized(reason);
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(body);
         }
 
         if (status == HttpStatus.BAD_REQUEST) {
             log.warn("{}: {}", status, reason);
-            NoProductsInShoppingCartException body = errorFactory.badRequest("Ошибка запроса", reason);
+            ErrorResponse body = errorFactory.badRequest("Ошибка запроса", reason);
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(body);
         }
 
@@ -41,9 +40,9 @@ public class ShoppingCartExceptionHandler {
     }
 
     @ExceptionHandler({MethodArgumentNotValidException.class, ConstraintViolationException.class, HttpMessageNotReadableException.class})
-    public ResponseEntity<NoProductsInShoppingCartException> handleValidationExceptions(Exception ex) {
+    public ResponseEntity<ErrorResponse> handleValidationExceptions(Exception ex) {
         log.warn("400 BAD_REQUEST: {}", ex.getMessage());
-        NoProductsInShoppingCartException body = errorFactory.badRequest("Ошибка запроса", ex.getMessage());
+        ErrorResponse body = errorFactory.badRequest("Ошибка запроса", ex.getMessage());
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(body);
     }
 }

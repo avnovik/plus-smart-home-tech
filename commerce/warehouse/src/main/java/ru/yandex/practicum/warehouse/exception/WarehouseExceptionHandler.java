@@ -10,9 +10,7 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.server.ResponseStatusException;
-import ru.yandex.practicum.commerce.dto.error.NoSpecifiedProductInWarehouseException;
-import ru.yandex.practicum.commerce.dto.error.ProductInShoppingCartLowQuantityInWarehouse;
-import ru.yandex.practicum.commerce.dto.error.SpecifiedProductAlreadyInWarehouseException;
+import ru.yandex.practicum.commerce.dto.error.ErrorResponse;
 
 @Slf4j
 @RestControllerAdvice
@@ -33,23 +31,23 @@ public class WarehouseExceptionHandler {
         log.warn("{}: {}", status, reason);
 
         if (WarehouseErrorReasons.PRODUCT_ALREADY_REGISTERED.message().equals(reason)) {
-            SpecifiedProductAlreadyInWarehouseException body = errorFactory.productAlreadyRegistered(reason);
+            ErrorResponse body = errorFactory.productAlreadyRegistered(reason);
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(body);
         }
 
         if (WarehouseErrorReasons.NO_PRODUCT_INFO.message().equals(reason)) {
-            NoSpecifiedProductInWarehouseException body = errorFactory.noProductInfo(reason);
+            ErrorResponse body = errorFactory.noProductInfo(reason);
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(body);
         }
 
-        ProductInShoppingCartLowQuantityInWarehouse body = errorFactory.lowQuantity(reason);
+        ErrorResponse body = errorFactory.lowQuantity(reason);
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(body);
     }
 
     @ExceptionHandler({MethodArgumentNotValidException.class, ConstraintViolationException.class, HttpMessageNotReadableException.class})
-    public ResponseEntity<ProductInShoppingCartLowQuantityInWarehouse> handleValidationExceptions(Exception ex) {
+    public ResponseEntity<ErrorResponse> handleValidationExceptions(Exception ex) {
         log.warn("400 BAD_REQUEST: {}", ex.getMessage());
-        ProductInShoppingCartLowQuantityInWarehouse body = errorFactory.lowQuantity(ex.getMessage());
+        ErrorResponse body = errorFactory.lowQuantity(ex.getMessage());
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(body);
     }
 }

@@ -2,35 +2,26 @@ package ru.yandex.practicum.cart.exception;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
-import ru.yandex.practicum.commerce.dto.error.NoProductsInShoppingCartException;
-import ru.yandex.practicum.commerce.dto.error.NotAuthorizedUserException;
+import ru.yandex.practicum.commerce.dto.error.ErrorResponse;
 
 @Component
 public class ShoppingCartErrorFactory {
 
     private static final String USERNAME_EMPTY_MESSAGE = "Имя пользователя не должно быть пустым";
 
-    public NotAuthorizedUserException notAuthorized(String reason) {
-        return new NotAuthorizedUserException(
-                null,
-                null,
+    public ErrorResponse notAuthorized(String reason) {
+        return new ErrorResponse(
                 statusString(HttpStatus.UNAUTHORIZED),
                 USERNAME_EMPTY_MESSAGE,
-                reason,
-                null,
-                null
+                reason
         );
     }
 
-    public NoProductsInShoppingCartException badRequest(String userMessage, String reason) {
-        return new NoProductsInShoppingCartException(
-                null,
-                null,
+    public ErrorResponse badRequest(String userMessage, String reason) {
+        return new ErrorResponse(
                 statusString(HttpStatus.BAD_REQUEST),
                 userMessage,
-                reason,
-                null,
-                null
+                reason
         );
     }
 
