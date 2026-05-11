@@ -2,6 +2,7 @@ package ru.yandex.practicum.commerce.dto.delivery;
 
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
+import ru.yandex.practicum.commerce.dto.common.AddressDto;
 
 import java.util.UUID;
 
