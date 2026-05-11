@@ -31,6 +31,14 @@ public class WarehouseErrorFactory {
         );
     }
 
+     public ErrorResponse orderBookingNotFound(String reason) {
+         return new ErrorResponse(
+                 statusString(HttpStatus.BAD_REQUEST),
+                 WarehouseErrorReasons.ORDER_BOOKING_NOT_FOUND.message(),
+                 reason
+         );
+     }
+
     private String statusString(HttpStatus status) {
         return status.value() + " " + status.name();
     }
