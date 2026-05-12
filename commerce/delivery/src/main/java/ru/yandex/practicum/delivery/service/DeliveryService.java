@@ -90,9 +90,7 @@ public class DeliveryService {
         String warehouseStreet = warehouseAddress == null ? null : warehouseAddress.street();
         String deliveryStreet = null;
 
-        if (delivery != null) {
-            deliveryStreet = delivery.getToStreet();
-        }
+        deliveryStreet = delivery.getToStreet();
 
         double cost = BASE_COST;
 

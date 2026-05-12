@@ -225,7 +225,7 @@ public class OrderService {
         }
 
         return orderRepository.findById(orderId)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.BAD_REQUEST, ORDER_NOT_FOUND_REASON));
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, ORDER_NOT_FOUND_REASON));
     }
 
     private AddressDto toDeliveryAddress(AddressDto address) {

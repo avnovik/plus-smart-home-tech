@@ -25,6 +25,14 @@ public class OrderErrorFactory {
         );
     }
 
+    public ErrorResponse notFound(String userMessage, String reason) {
+        return new ErrorResponse(
+                statusString(HttpStatus.NOT_FOUND),
+                userMessage,
+                reason
+        );
+    }
+
     private String statusString(HttpStatus status) {
         return status.value() + " " + status.name();
     }

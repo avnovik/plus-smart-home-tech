@@ -61,7 +61,7 @@ public class PaymentService {
     public BigDecimal totalCost(OrderDto order) {
         BigDecimal productTotal = productCost(order);
 
-        if (order == null || order.deliveryPrice() == null) {
+        if (order.deliveryPrice() == null) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, NOT_ENOUGH_INFO_REASON);
         }
 

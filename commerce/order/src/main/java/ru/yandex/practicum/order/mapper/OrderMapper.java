@@ -2,6 +2,7 @@ package ru.yandex.practicum.order.mapper;
 
 import org.springframework.stereotype.Component;
 import ru.yandex.practicum.commerce.dto.order.OrderDto;
+import ru.yandex.practicum.commerce.dto.order.OrderState;
 import ru.yandex.practicum.order.model.OrderEntity;
 import ru.yandex.practicum.order.model.OrderItemEntity;
 
@@ -26,7 +27,7 @@ public class OrderMapper {
                 products,
                 order.getPaymentId(),
                 order.getDeliveryId(),
-                ru.yandex.practicum.commerce.dto.order.OrderState.valueOf(order.getState().name()),
+                OrderState.valueOf(order.getState().name()),
                 order.getDeliveryWeight(),
                 order.getDeliveryVolume(),
                 order.getFragile(),

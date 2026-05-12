@@ -44,6 +44,16 @@ public class OrderExceptionHandler {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(body);
         }
 
+        if (status == HttpStatus.NOT_FOUND) {
+            log.warn("{}: {}", status, reason);
+            String userMessage = "Ресурс не найден";
+            if (ORDER_NOT_FOUND_REASON.equals(reason)) {
+                userMessage = reason;
+            }
+            ErrorResponse body = errorFactory.notFound(userMessage, reason);
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(body);
+        }
+
         throw ex;
     }
 

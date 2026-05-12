@@ -2,6 +2,7 @@ package ru.yandex.practicum.delivery.controller;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import jakarta.validation.constraints.NotNull;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.RestController;
 import ru.yandex.practicum.commerce.client.DeliveryApi;
@@ -23,8 +24,8 @@ public class DeliveryController implements DeliveryApi {
     private final DeliveryMapper deliveryMapper;
 
     @Override
-    public DeliveryDto planDelivery(DeliveryDto request) {
-        log.info("planDelivery: orderId={}", request == null ? null : request.orderId());
+    public DeliveryDto planDelivery(@NotNull DeliveryDto request) {
+        log.info("planDelivery: orderId={}", request.orderId());
         DeliveryEntity entity = deliveryMapper.toEntity(request);
         DeliveryEntity saved = deliveryService.planDelivery(entity);
         return deliveryMapper.toDto(saved);

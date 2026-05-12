@@ -77,7 +77,7 @@ public class OrderEntity {
     @Column(name = "product_price")
     private BigDecimal productPrice;
 
-    @OneToMany(mappedBy = "order", fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "order", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<OrderItemEntity> items = new HashSet<>();
 
     public OrderEntity(UUID id, String username, OrderState state) {
