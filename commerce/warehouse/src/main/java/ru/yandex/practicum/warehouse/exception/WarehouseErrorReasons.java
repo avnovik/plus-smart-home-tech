@@ -6,7 +6,8 @@ public enum WarehouseErrorReasons {
     NO_PRODUCT_INFO("Нет информации о товаре на складе"),
     PRODUCT_NOT_IN_WAREHOUSE("Товара нет на складе"),
     LOW_QUANTITY("Недостаточно товара на складе"),
-    INVALID_PRODUCT_PARAMS("Некорректные параметры товара");
+    INVALID_PRODUCT_PARAMS("Некорректные параметры товара"),
+    ORDER_BOOKING_NOT_FOUND("Бронирование заказа не найдено");
 
     private final String message;
 

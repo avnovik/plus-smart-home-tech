@@ -4,14 +4,18 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.RestController;
 import ru.yandex.practicum.commerce.client.WarehouseApi;
+import ru.yandex.practicum.commerce.dto.common.AddressDto;
 import ru.yandex.practicum.commerce.dto.common.ShoppingCartDto;
 import ru.yandex.practicum.commerce.dto.warehouse.AddProductToWarehouseRequest;
-import ru.yandex.practicum.commerce.dto.warehouse.AddressDto;
+import ru.yandex.practicum.commerce.dto.warehouse.AssemblyProductsForOrderRequest;
 import ru.yandex.practicum.commerce.dto.warehouse.BookedProductsDto;
 import ru.yandex.practicum.commerce.dto.warehouse.NewProductInWarehouseRequest;
+import ru.yandex.practicum.commerce.dto.warehouse.ShippedToDeliveryRequest;
 import ru.yandex.practicum.warehouse.service.WarehouseService;
 
 import java.util.List;
+import java.util.Map;
+import java.util.UUID;
 import java.util.concurrent.ThreadLocalRandom;
 
 @Slf4j
@@ -20,8 +24,8 @@ import java.util.concurrent.ThreadLocalRandom;
 public class WarehouseController implements WarehouseApi {
 
     private static final List<AddressDto> WAREHOUSE_ADDRESSES = List.of(
-            new AddressDto("Россия", "Москва", "Тверская", "1", "1"),
-            new AddressDto("Россия", "Санкт-Петербург", "Невский проспект", "1", "1")
+            new AddressDto("Россия", "Москва", "ADDRESS_1", "1", "1"),
+            new AddressDto("Россия", "Санкт-Петербург", "ADDRESS_2", "1", "1")
     );
 
     private final WarehouseService warehouseService;
@@ -51,4 +55,22 @@ public class WarehouseController implements WarehouseApi {
         log.info("getWarehouseAddress");
         return warehouseAddress;
     }
+
+     @Override
+     public BookedProductsDto assemblyProductsForOrder(AssemblyProductsForOrderRequest request) {
+         log.info("assemblyProductsForOrder: orderId={}", request == null ? null : request.orderId());
+         return warehouseService.assemblyProductsForOrder(request);
+     }
+
+     @Override
+     public void shippedToDelivery(ShippedToDeliveryRequest request) {
+         log.info("shippedToDelivery: orderId={}, deliveryId={}", request == null ? null : request.orderId(), request == null ? null : request.deliveryId());
+         warehouseService.shippedToDelivery(request);
+     }
+
+     @Override
+     public void acceptReturn(Map<UUID, Long> products) {
+         log.info("acceptReturn: productsCount={}", products == null ? 0 : products.size());
+         warehouseService.acceptReturn(products);
+     }
 }

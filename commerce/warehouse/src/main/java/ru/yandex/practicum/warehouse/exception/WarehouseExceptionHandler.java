@@ -40,6 +40,11 @@ public class WarehouseExceptionHandler {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(body);
         }
 
+        if (WarehouseErrorReasons.ORDER_BOOKING_NOT_FOUND.message().equals(reason)) {
+            ErrorResponse body = errorFactory.orderBookingNotFound(reason);
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(body);
+        }
+
         ErrorResponse body = errorFactory.lowQuantity(reason);
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(body);
     }

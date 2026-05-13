@@ -1,4 +1,4 @@
-package ru.yandex.practicum.commerce.dto.warehouse;
+package ru.yandex.practicum.commerce.dto.common;
 
 public record AddressDto(
         String country,

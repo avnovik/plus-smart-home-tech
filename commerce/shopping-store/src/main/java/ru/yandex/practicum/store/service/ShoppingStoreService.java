@@ -50,13 +50,13 @@ public class ShoppingStoreService {
     @Transactional
     public ProductDto updateProduct(ProductDto productDto) {
         if (productDto.productId() == null) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "productId is required");
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "productId обязателен");
         }
 
         ProductEntity entity = productRepository.findById(productDto.productId())
                 .orElseThrow(() -> new ResponseStatusException(
                         HttpStatus.NOT_FOUND,
-                        "Product not found: " + productDto.productId()
+                        "Товар не найден: " + productDto.productId()
                 ));
 
         productMapper.updateEntity(entity, productDto);
@@ -67,13 +67,13 @@ public class ShoppingStoreService {
     @Transactional
     public Boolean removeProductFromStore(UUID productId) {
         if (productId == null) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "productId is required");
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "productId обязателен");
         }
 
         ProductEntity entity = productRepository.findById(productId)
                 .orElseThrow(() -> new ResponseStatusException(
                         HttpStatus.NOT_FOUND,
-                        "Product not found: " + productId
+                        "Товар не найден: " + productId
                 ));
 
         entity.setProductState(ProductState.DEACTIVATE);
@@ -84,16 +84,16 @@ public class ShoppingStoreService {
     @Transactional
     public Boolean setProductQuantityState(UUID productId, QuantityState quantityState) {
         if (productId == null) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "productId is required");
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "productId обязателен");
         }
         if (quantityState == null) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "quantityState is required");
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "quantityState обязателен");
         }
 
         ProductEntity entity = productRepository.findById(productId)
                 .orElseThrow(() -> new ResponseStatusException(
                         HttpStatus.NOT_FOUND,
-                        "Product not found: " + productId
+                        "Товар не найден: " + productId
                 ));
 
         entity.setQuantityState(quantityState);
@@ -106,7 +106,7 @@ public class ShoppingStoreService {
         ProductEntity entity = productRepository.findById(productId)
                 .orElseThrow(() -> new ResponseStatusException(
                         HttpStatus.NOT_FOUND,
-                        "Product not found: " + productId
+                        "Товар не найден: " + productId
                 ));
         return productMapper.toDto(entity);
     }
